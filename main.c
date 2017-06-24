@@ -108,6 +108,11 @@ int credentials()
             */
             while((character_input = getch()) != '\r')
             {
+                /*
+                Trying to give the user an authentic feel
+                of being able to see stars when trying to
+                provide password credentials.
+                */
                 password[i] = character_input;
                 printf("*");
                 i++;
