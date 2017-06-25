@@ -15,11 +15,21 @@ THANK YOU!
 #include <string.h>
 #include <windows.h>
 
-/*Defining the maximum number of employees that
+/*
+Defining the maximum number of employees that
 we want to save in our database (i.e FILES)
-Here the our limit is upto a 100 employees.*/
+Here the our limit is upto a 100 employees.
+*/
 #define MAX_NUMBER_OF_EMPLOYEES 100
-
+/*
+We will use this variable below to keep
+track of the number of employees that will
+be entered by the user during the duration
+of the program. It will start off as 0 each
+time the program runs. We will initialize it
+with a different value when we are using files.
+*/
+static int number_of_current_employees = 0;
 /*
 Defining a basic structure to store date information
 of integer types. C comes with its own built in
@@ -109,6 +119,17 @@ int credentials()
             */
             while((character_input = getch()) != '\r')
             {
+                /*
+                While taking the input password as *'s I have come
+                to notice that even the backspace keys which is normally
+                used to delete the previous entered inputs in the same line
+                will be accepted as characters for getch(), as opposed to it's
+                actual purpose of deleting the previous characters. As a
+                result I have googled the fix to this problem by looking for
+                the backspace input and deleting the previous characters entered.
+                The stackoverflow link that helped me solve this problem is:
+                https://stackoverflow.com/questions/8132245/backspace-and-delete-issues-with-the-getch-function-in-dos
+                */
                 if(character_input == '\b')
                 {
                     i--;
@@ -129,6 +150,10 @@ int credentials()
                     i++;
                 }
             }
+            /*
+            Always good practice to terminate the end of a string in
+            a character array with a null (i.e: \0)
+            */
             password[i] = '\0';
             printf("\n");
 
@@ -204,16 +229,56 @@ int credentials()
 
 }
 
+void main_menu()
+{
+    system("cls");
+
+    int options, flag = 1;
+
+    while(flag)
+    {
+        printf("Welcome to this demo employee management project!");
+        printf("Please choose one of the available options below:");
+
+        printf("Enter 1 to see the list of current employees.");
+        printf("Enter 2 to enter one or more employees.");
+        printf("Enter 3 to edit a current employee.");
+        printf("Enter 4 to remove a current employee from the system.");
+        printf("Enter 5 to save data of current employees.");
+        printf("Enter 6 to save and exit the program.");
+
+        switch(options)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                flag = 0;
+                break;
+            default:
+                printf("You have entered a wrong number as input! Please try again.");
+        }
+
+    }
+
+}
+
 
 int main()
 {
     printf("Welcome to a demo management system! Enter the proper username and password to access the main menu!\n");
-    // printf("%d", credentials());
 
     if (credentials())
-    {
-
-    }
+        main_menu();
+    else
+        printf("Thank You for taking time to run this program");
 
     return 0;
 }
