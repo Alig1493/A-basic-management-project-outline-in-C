@@ -13,6 +13,7 @@ THANK YOU!
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 
 /*Defining the maximum number of employees that
 we want to save in our database (i.e FILES)
@@ -108,15 +109,27 @@ int credentials()
             */
             while((character_input = getch()) != '\r')
             {
+                if(character_input == '\b')
+                {
+                    i--;
+                    if(i<0)
+                        i++;
+                    else
+                        printf("\b \b");
+                }
                 /*
                 Trying to give the user an authentic feel
                 of being able to see stars when trying to
                 provide password credentials.
                 */
-                password[i] = character_input;
-                printf("*");
-                i++;
+                else
+                {
+                    password[i] = character_input;
+                    printf("*");
+                    i++;
+                }
             }
+            password[i] = '\0';
             printf("\n");
 
             if (strcmp(password, correct_password) == 0)
@@ -127,6 +140,8 @@ int credentials()
                 value of 1, with which we can use to determine that the
                 login attempt was a success.
                 */
+                printf("Correct Username and Password!");
+                Sleep(2000);
                 return 1;
             }
 
@@ -192,13 +207,13 @@ int credentials()
 
 int main()
 {
-    // system("cls")
     printf("Welcome to a demo management system! Enter the proper username and password to access the main menu!\n");
-    printf("%d", credentials());
+    // printf("%d", credentials());
 
-    /*while(true)
+    if (credentials())
     {
 
-    }*/
+    }
+
     return 0;
 }
