@@ -240,11 +240,11 @@ void main_menu()
         printf("Welcome to this demo employee management project!");
         printf("Please choose one of the available options below:");
 
-        printf("Enter 1 to see the list of current employees.");
-        printf("Enter 2 to enter one or more employees.");
-        printf("Enter 3 to edit a current employee.");
-        printf("Enter 4 to remove a current employee from the system.");
-        printf("Enter 5 to save data of current employees.");
+        printf("Enter 1 to see the list of current employee details.");
+        printf("Enter 2 to enter one or more employee details.");
+        printf("Enter 3 to edit one or more current employee details.");
+        printf("Enter 4 to remove a current employee details from the system.");
+        printf("Enter 5 to save data of current employee details.");
         printf("Enter 6 to save and exit the program.");
 
         switch(options)
