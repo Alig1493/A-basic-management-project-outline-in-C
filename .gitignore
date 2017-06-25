@@ -1,4 +1,9 @@
+# excluding these files and/or folders
 *.o
 *.exe
 obj/Debug/*.o
 bin/Debug/*.exe
+
+# keeping these files and/or folders
+!obj/Debug/.gitkeep
+!bin/Debug/.gitkeep
