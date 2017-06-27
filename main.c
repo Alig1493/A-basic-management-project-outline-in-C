@@ -235,23 +235,30 @@ void main_menu()
 
     int options, flag = 1;
 
+    printf("Welcome to this demo employee management project!\n\n");
+
     while(flag)
     {
-        printf("Welcome to this demo employee management project!");
-        printf("Please choose one of the available options below:");
+        printf("\nPlease choose one of the available options below:\n\n");
 
-        printf("Enter 1 to see the list of current employee details.");
-        printf("Enter 2 to enter one or more employee details.");
-        printf("Enter 3 to edit one or more current employee details.");
-        printf("Enter 4 to remove a current employee details from the system.");
-        printf("Enter 5 to save data of current employee details.");
-        printf("Enter 6 to save and exit the program.");
+        printf("Enter 1 to see the list of current employee details.\n");
+        printf("Enter 2 to enter one or more employee details.\n");
+        printf("Enter 3 to edit one or more current employee details.\n");
+        printf("Enter 4 to remove a current employee details from the system.\n");
+        printf("Enter 5 to save data of current employee details.\n");
+        printf("Enter 6 to save and exit the program.\n\n");
+
+        printf("Your option: ");
+        scanf("%d", &options);
+        printf("\n");
 
         switch(options)
         {
             case 1:
+                view_all_employee_records();
                 break;
             case 2:
+                enter_employee_records();
                 break;
             case 3:
                 break;
@@ -263,17 +270,115 @@ void main_menu()
                 flag = 0;
                 break;
             default:
-                printf("You have entered a wrong number as input! Please try again.");
+                printf("You have entered a wrong number as input! Please try again.\n");
         }
 
     }
 
 }
 
+void date_entry(char date[], int serial)
+{
+    char *token;
+    int j, k = 0, date_in_integers[3];
+
+    fflush(stdin);
+    gets(date);
+
+    /* get the first token */
+   token = strtok(date, "-");
+
+   /* walk through other tokens */
+   while( token != NULL )
+   {
+      j = atoi (token);
+      date_in_integers[k] = j;
+      token = strtok(NULL, "-");
+      k++;
+   }
+
+   employee_member[serial].joined.day = date_in_integers[0];
+   employee_member[serial].joined.month = date_in_integers[1];
+   employee_member[serial].joined.year = date_in_integers[2];
+
+}
+
+void enter_employee_records()
+{
+    int number_of_records, i = 0;
+    char date[11];
+
+    printf("How many employee records do you want to enter: ");
+    scanf("%d", &number_of_records);
+    printf("%d\n", number_of_records);
+
+    printf("Enter employee details below:\n");
+    printf("--------------------------------------------\n");
+
+    while(i < number_of_records)
+    {
+        printf("--------------------------------------------\n");
+        employee_member[i].employee_id = rand() % 9000 + 1000;
+        printf("Enter details for employee %d:\n", i + 1);
+        printf("Enter first name: ");
+        fflush(stdin);
+        gets(employee_member[i].first_name);
+        printf("Enter last name: ");
+        fflush(stdin);
+        gets(employee_member[i].last_name);
+        printf("Enter job title: ");
+        fflush(stdin);
+        gets(employee_member[i].job_title);
+        printf("Enter salary: ");
+        fflush(stdin);
+        scanf("%f", &employee_member[i].salary);
+        printf("Enter date in the following format (DD-MM-YYYY): ");
+        date_entry(date, i);
+
+        i++;
+        number_of_current_employees++;
+        printf("--------------------------------------------\n");
+    }
+
+    printf("--------------------------------------------\n");
+
+}
+
+void view_all_employee_records()
+{
+    int i = 0;
+
+    printf("\n\n");
+    printf("Current employee details in the system are as follows:\n");
+
+    printf("--------------------------------------------\n");
+
+    while(i < number_of_current_employees)
+    {
+        printf("--------------------------------------------");
+        printf("\nEmployee ID: ");
+        printf("%d\n", employee_member[i].employee_id);
+        printf("\nEmployee Name: ");
+        printf("%s %s\n", employee_member[i].first_name, employee_member[i].last_name);
+        printf("\nEmployee Job Title: ");
+        printf("%s\n", employee_member[i].job_title);
+        printf("\nEmployee Current Salary: ");
+        printf("%f\n", employee_member[i].salary);
+        printf("\nEmployee Joining Date: ");
+        printf("%d-", employee_member[i].joined.day);
+        printf("%d-", employee_member[i].joined.month);
+        printf("%d\n", employee_member[i].joined.year);
+        i++;
+        printf("--------------------------------------------");
+        printf("\n");
+    }
+
+    printf("--------------------------------------------\n");
+}
 
 int main()
 {
-    printf("Welcome to a demo management system! Enter the proper username and password to access the main menu!\n");
+    printf("Welcome to a demo management system!\nEnter the proper username and password to access the main menu!\n");
 
     if (credentials())
         main_menu();
